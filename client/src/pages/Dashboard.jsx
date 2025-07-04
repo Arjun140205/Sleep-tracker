@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SleepEntryForm from "../components/SleepEntryForm";
 import SleepEntryList from "../components/SleepEntryList";
+import SleepStats from "../components/SleepStats";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ const Dashboard = () => {
       </button>
 
       <SleepEntryList entries={entries} />
+      <SleepStats entries={entries} />
       <SleepEntryForm visible={showForm} onClose={() => setShowForm(false)} setEntries={setEntries} />
     </div>
   );
