@@ -17,7 +17,7 @@ const Dashboard = () => {
       navigate("/login");
     } else {
       axios
-        .get("http://localhost:5000/api/entries", {
+        .get("http://localhost:5001/api/entries", {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setEntries(res.data))
