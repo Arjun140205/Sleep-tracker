@@ -7,11 +7,19 @@ const authRoutes = require("./routes/authRoutes");
 const entryRoutes = require("./routes/entryRoutes");
 
 const app = express();
-app.use(cors());
+
+// Configure CORS to allow requests from the React app
+app.use(cors({
+  origin: ['http://localhost:3004', 'http://localhost:3005', 'http://localhost:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 app.use("/api", authRoutes);
 app.use("/api", entryRoutes); // to add next
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
