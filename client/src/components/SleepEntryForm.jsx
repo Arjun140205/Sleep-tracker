@@ -33,7 +33,7 @@ const SleepEntryForm = ({ visible, onClose, setEntries }) => {
     const newEntry = { date, sleepTime, wakeTime, duration };
 
     try {
-      const res = await fetch("http://localhost:5000/api/entries", {
+      const res = await fetch("http://localhost:5001/api/entries", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
