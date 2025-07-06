@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { getToken } from "../utils/auth";
 import { differenceInMinutes, parse } from "date-fns";
 
 const SleepEntryForm = ({ visible, onClose, setEntries }) => {
@@ -28,7 +29,7 @@ const SleepEntryForm = ({ visible, onClose, setEntries }) => {
     e.preventDefault();
     setError("");
 
-    const token = localStorage.getItem("token");
+    const token = getToken();
     const duration = calculateDuration();
     const newEntry = { date, sleepTime, wakeTime, duration };
 
