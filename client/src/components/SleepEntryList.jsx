@@ -15,7 +15,7 @@ const SleepEntryList = ({ entries }) => {
           </thead>
           <tbody>
             {entries.map((entry) => (
-              <tr key={entry._id} className="border-b hover:bg-gray-50">
+              <tr key={entry.id} className="border-b hover:bg-gray-50">
                 <td className="p-2">{entry.date}</td>
                 <td className="p-2">{entry.sleepTime}</td>
                 <td className="p-2">{entry.wakeTime}</td>
