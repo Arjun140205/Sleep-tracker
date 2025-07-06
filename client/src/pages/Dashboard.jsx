@@ -5,6 +5,7 @@ import axios from "axios";
 import SleepEntryForm from "../components/SleepEntryForm";
 import SleepEntryList from "../components/SleepEntryList";
 import SleepStats from "../components/SleepStats";
+import ExportButton from "../components/ExportButton";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -42,12 +43,15 @@ const Dashboard = () => {
         </button>
       </div>
 
-      <button
-        onClick={() => setShowForm(true)}
-        className="mb-4 bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700"
-      >
-        + New Entry
-      </button>
+      <div className="flex items-center mb-4">
+        <button
+          onClick={() => setShowForm(true)}
+          className="bg-blue-600 text-white px-6 py-2 rounded shadow hover:bg-blue-700"
+        >
+          + New Entry
+        </button>
+        <ExportButton entries={entries} />
+      </div>
 
       <SleepEntryList entries={entries} />
       <SleepStats entries={entries} />
