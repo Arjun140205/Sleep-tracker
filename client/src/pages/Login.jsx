@@ -15,6 +15,9 @@ const Login = () => {
     setLoading(true);
 
     try {
+      console.log("🔐 Starting login request...");
+      const startTime = Date.now();
+      
       const response = await fetch("http://localhost:5001/api/auth/login", {
         method: "POST",
         headers: {
@@ -24,6 +27,8 @@ const Login = () => {
       });
 
       const data = await response.json();
+      const duration = Date.now() - startTime;
+      console.log(`📡 Login request completed in ${duration}ms`);
 
       if (!response.ok) {
         throw new Error(data.message || "Login failed");
@@ -32,6 +37,7 @@ const Login = () => {
       setToken(data.token);
       navigate("/dashboard");
     } catch (err) {
+      console.error("❌ Login error:", err);
       setError(err.message);
     } finally {
       setLoading(false);
