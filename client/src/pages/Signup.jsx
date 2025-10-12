@@ -28,6 +28,9 @@ const Signup = () => {
     setLoading(true);
 
     try {
+      console.log("🔐 Starting signup request...");
+      const startTime = Date.now();
+      
       const response = await fetch("http://localhost:5001/api/auth/signup", {
         method: "POST",
         headers: {
@@ -37,6 +40,8 @@ const Signup = () => {
       });
 
       const data = await response.json();
+      const duration = Date.now() - startTime;
+      console.log(`📡 Signup request completed in ${duration}ms`);
 
       if (!response.ok) {
         throw new Error(data.message || "Registration failed");
@@ -45,6 +50,7 @@ const Signup = () => {
       setToken(data.token);
       navigate("/dashboard");
     } catch (err) {
+      console.error("❌ Signup error:", err);
       setError(err.message);
     } finally {
       setLoading(false);
