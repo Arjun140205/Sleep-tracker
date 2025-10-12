@@ -7,6 +7,34 @@ let db;
 
 console.log("🔧 Initializing Firebase configuration...");
 
+// Check network connectivity (async, non-blocking)
+const checkNetworkConnectivity = () => {
+  const https = require('https');
+  return new Promise((resolve) => {
+    try {
+      const req = https.request({
+        hostname: 'www.googleapis.com',
+        port: 443,
+        path: '/',
+        method: 'HEAD',
+        timeout: 5000
+      }, (res) => {
+        resolve(true);
+      });
+      
+      req.on('error', () => resolve(false));
+      req.on('timeout', () => {
+        req.destroy();
+        resolve(false);
+      });
+      
+      req.end();
+    } catch (error) {
+      resolve(false);
+    }
+  });
+};
+
 try {
   let firebaseConfig = null;
   let credentialSource = null;
@@ -80,6 +108,19 @@ try {
     console.log("🚀 Firebase initialized successfully!");
     console.log("📊 Using credential source:", credentialSource);
     console.log("🗄️  Database URL:", firebaseConfig.databaseURL);
+    
+    // Check network connectivity asynchronously (non-blocking)
+    checkNetworkConnectivity().then(isConnected => {
+      if (!isConnected) {
+        console.warn("⚠️  Network connectivity issue detected. Firebase may not work properly.");
+        console.log("🔍 Troubleshooting steps:");
+        console.log("   1. Check your internet connection");
+        console.log("   2. Verify firewall settings allow access to *.googleapis.com");
+        console.log("   3. Try using a different network (mobile hotspot)");
+      }
+    }).catch(() => {
+      console.warn("⚠️  Could not check network connectivity");
+    });
   } else {
     throw new Error("No valid Firebase configuration found");
   }
