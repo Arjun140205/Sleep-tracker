@@ -102,37 +102,37 @@ const QuickSleepLog = ({ onEntryAdded }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-6 border-l-4 border-blue-500">
-      <h3 className="text-lg font-semibold text-blue-800 mb-3">⚡ Quick Sleep Log</h3>
+    <div className="p-6">
+      <h3 className="text-xl font-semibold text-white mb-6">Quick Sleep Log</h3>
       
       {!isLogging ? (
         <div className="text-center">
-          <p className="text-gray-600 mb-4">
+          <p className="text-zinc-400 mb-6">
             Going to bed? Start tracking your sleep with one tap!
           </p>
           <button
             onClick={startSleepTracking}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition-colors"
+            className="bg-zinc-800 hover:bg-zinc-700 text-white px-8 py-4 rounded-lg font-medium transition-colors"
           >
             😴 Start Sleep Tracking
           </button>
         </div>
       ) : (
         <div className="text-center">
-          <div className="mb-4">
-            <p className="text-gray-600 mb-2">Sleep tracking active since:</p>
-            <p className="text-xl font-bold text-blue-600">
+          <div className="mb-6">
+            <p className="text-zinc-400 mb-3">Sleep tracking active since:</p>
+            <p className="text-2xl font-bold text-white mb-3">
               {format(new Date(sleepStartTime), 'HH:mm')}
             </p>
-            <p className="text-lg text-gray-700 mt-2">
+            <p className="text-zinc-300">
               Current duration: <span className="font-semibold">{getCurrentDuration()}</span>
             </p>
           </div>
           
-          <div className="space-y-2">
+          <div className="space-y-3">
             <button
               onClick={stopSleepTracking}
-              className="w-full bg-green-600 text-white px-6 py-3 rounded-lg text-lg font-medium hover:bg-green-700 transition-colors"
+              className="w-full bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
             >
               🌅 Wake Up & Log Sleep
             </button>
@@ -143,7 +143,7 @@ const QuickSleepLog = ({ onEntryAdded }) => {
                 setSleepStartTime(null);
                 localStorage.removeItem('sleepStartTime');
               }}
-              className="w-full bg-gray-400 text-white px-4 py-2 rounded text-sm hover:bg-gray-500 transition-colors"
+              className="w-full bg-zinc-700 hover:bg-zinc-600 text-white px-4 py-2 rounded-lg text-sm transition-colors"
             >
               Cancel Tracking
             </button>
@@ -152,12 +152,12 @@ const QuickSleepLog = ({ onEntryAdded }) => {
       )}
 
       {error && (
-        <div className="mt-3 p-2 bg-red-100 border border-red-400 text-red-700 rounded text-sm">
+        <div className="mt-4 p-3 bg-red-900/50 border border-red-800 text-red-300 rounded-lg text-sm">
           {error}
         </div>
       )}
 
-      <div className="mt-4 text-xs text-gray-500 text-center">
+      <div className="mt-6 text-xs text-zinc-500 text-center">
         💡 Tip: Keep this tab open or bookmark it for easy sleep tracking!
       </div>
     </div>
