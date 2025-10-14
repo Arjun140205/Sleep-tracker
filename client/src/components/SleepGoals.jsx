@@ -33,12 +33,12 @@ const SleepGoals = ({ userGoals, onGoalsUpdate }) => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold text-blue-800">🎯 Sleep Goals</h2>
+    <div className="p-6">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-xl font-semibold text-white">Sleep Goals</h2>
         <button
           onClick={() => setIsEditing(!isEditing)}
-          className="text-blue-600 hover:text-blue-800"
+          className="text-zinc-400 hover:text-white transition-colors font-medium"
         >
           {isEditing ? "Cancel" : "Edit"}
         </button>
@@ -47,7 +47,7 @@ const SleepGoals = ({ userGoals, onGoalsUpdate }) => {
       {isEditing ? (
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Target Sleep Hours</label>
+            <label className="block text-sm font-medium mb-2 text-zinc-300">Target Sleep Hours</label>
             <input
               type="number"
               min="6"
@@ -55,27 +55,27 @@ const SleepGoals = ({ userGoals, onGoalsUpdate }) => {
               step="0.5"
               value={goals.targetSleepHours}
               onChange={(e) => setGoals({...goals, targetSleepHours: parseFloat(e.target.value)})}
-              className="w-full p-2 border rounded"
+              className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-400 focus:border-zinc-600 focus:outline-none transition-colors"
             />
           </div>
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium mb-1">Target Bedtime</label>
+              <label className="block text-sm font-medium mb-2 text-zinc-300">Target Bedtime</label>
               <input
                 type="time"
                 value={goals.targetBedtime}
                 onChange={(e) => setGoals({...goals, targetBedtime: e.target.value})}
-                className="w-full p-2 border rounded"
+                className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:border-zinc-600 focus:outline-none transition-colors"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium mb-1">Target Wake Time</label>
+              <label className="block text-sm font-medium mb-2 text-zinc-300">Target Wake Time</label>
               <input
                 type="time"
                 value={goals.targetWakeTime}
                 onChange={(e) => setGoals({...goals, targetWakeTime: e.target.value})}
-                className="w-full p-2 border rounded"
+                className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:border-zinc-600 focus:outline-none transition-colors"
               />
             </div>
           </div>
@@ -86,31 +86,31 @@ const SleepGoals = ({ userGoals, onGoalsUpdate }) => {
               id="reminders"
               checked={goals.reminderEnabled}
               onChange={(e) => setGoals({...goals, reminderEnabled: e.target.checked})}
-              className="mr-2"
+              className="mr-3 w-4 h-4 text-white bg-zinc-800 border-zinc-700 rounded focus:ring-zinc-600"
             />
-            <label htmlFor="reminders" className="text-sm">Enable sleep reminders</label>
+            <label htmlFor="reminders" className="text-sm text-zinc-300">Enable sleep reminders</label>
           </div>
 
           <button
             onClick={handleSave}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="w-full bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
           >
             Save Goals
           </button>
         </div>
       ) : (
         <div className="grid grid-cols-3 gap-4 text-center">
-          <div className="p-3 bg-blue-50 rounded">
-            <div className="text-2xl font-bold text-blue-600">{goals.targetSleepHours}h</div>
-            <div className="text-sm text-gray-600">Target Sleep</div>
+          <div className="p-4 bg-zinc-800 rounded-lg border border-zinc-700">
+            <div className="text-2xl font-bold text-white mb-1">{goals.targetSleepHours}h</div>
+            <div className="text-sm text-zinc-400">Target Sleep</div>
           </div>
-          <div className="p-3 bg-green-50 rounded">
-            <div className="text-lg font-semibold text-green-600">{goals.targetBedtime}</div>
-            <div className="text-sm text-gray-600">Bedtime Goal</div>
+          <div className="p-4 bg-zinc-800 rounded-lg border border-zinc-700">
+            <div className="text-lg font-semibold text-white mb-1">{goals.targetBedtime}</div>
+            <div className="text-sm text-zinc-400">Bedtime Goal</div>
           </div>
-          <div className="p-3 bg-orange-50 rounded">
-            <div className="text-lg font-semibold text-orange-600">{goals.targetWakeTime}</div>
-            <div className="text-sm text-gray-600">Wake Goal</div>
+          <div className="p-4 bg-zinc-800 rounded-lg border border-zinc-700">
+            <div className="text-lg font-semibold text-white mb-1">{goals.targetWakeTime}</div>
+            <div className="text-sm text-zinc-400">Wake Goal</div>
           </div>
         </div>
       )}
