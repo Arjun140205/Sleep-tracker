@@ -28,7 +28,7 @@ const ExportButton = ({ entries }) => {
   return (
     <button
       onClick={handleExport}
-      className="bg-green-600 text-white px-6 py-2 rounded shadow hover:bg-green-700"
+      className="w-full bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg transition-colors"
     >
       ⬇️ Export to Excel
     </button>
