@@ -46,30 +46,49 @@ const SleepStats = ({ entries }) => {
   };
 
   return (
-    <div className="bg-white mt-6 p-4 rounded shadow">
-      <h2 className="text-xl font-semibold mb-4">📊 Sleep Summary</h2>
+    <div className="p-6">
+      <h2 className="text-xl font-semibold text-white mb-6">Sleep Summary</h2>
 
-      <div className="grid md:grid-cols-2 gap-6 mb-6">
-        <div>
-          <p><strong>Average Duration:</strong> {avgHrs}h {avgMins}m</p>
-          <p><strong>Days &lt; 6h:</strong> {lessThan6}</p>
-          <p><strong>Days &gt; 8h:</strong> {moreThan8}</p>
+      <div className="grid md:grid-cols-2 gap-4 mb-6">
+        <div className="space-y-3">
+          <div className="p-3 bg-zinc-800 rounded-lg border border-zinc-700">
+            <p className="text-zinc-300"><span className="text-white font-semibold">Average Duration:</span> {avgHrs}h {avgMins}m</p>
+          </div>
+          <div className="p-3 bg-zinc-800 rounded-lg border border-zinc-700">
+            <p className="text-zinc-300"><span className="text-white font-semibold">Days &lt; 6h:</span> {lessThan6}</p>
+          </div>
+          <div className="p-3 bg-zinc-800 rounded-lg border border-zinc-700">
+            <p className="text-zinc-300"><span className="text-white font-semibold">Days &gt; 8h:</span> {moreThan8}</p>
+          </div>
         </div>
-        <div>
-          <p><strong>Avg Sleep Time:</strong> {formatTime(avgSleepTimeMins)}</p>
-          <p><strong>Avg Wake Time:</strong> {formatTime(avgWakeTimeMins)}</p>
+        <div className="space-y-3">
+          <div className="p-3 bg-zinc-800 rounded-lg border border-zinc-700">
+            <p className="text-zinc-300"><span className="text-white font-semibold">Avg Sleep Time:</span> {formatTime(avgSleepTimeMins)}</p>
+          </div>
+          <div className="p-3 bg-zinc-800 rounded-lg border border-zinc-700">
+            <p className="text-zinc-300"><span className="text-white font-semibold">Avg Wake Time:</span> {formatTime(avgWakeTimeMins)}</p>
+          </div>
         </div>
       </div>
 
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={entries}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis label={{ value: "Minutes", angle: -90, position: "insideLeft" }} />
-          <Tooltip />
-          <Bar dataKey={(entry) => toMinutes(entry.duration)} fill="#4299e1" />
-        </BarChart>
-      </ResponsiveContainer>
+      <div className="bg-zinc-800 p-4 rounded-lg border border-zinc-700">
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={entries}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#52525b" />
+            <XAxis dataKey="date" stroke="#a1a1aa" />
+            <YAxis label={{ value: "Minutes", angle: -90, position: "insideLeft" }} stroke="#a1a1aa" />
+            <Tooltip 
+              contentStyle={{ 
+                backgroundColor: '#27272a', 
+                border: '1px solid #52525b', 
+                borderRadius: '6px',
+                color: '#f4f4f5'
+              }} 
+            />
+            <Bar dataKey={(entry) => toMinutes(entry.duration)} fill="#71717a" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
