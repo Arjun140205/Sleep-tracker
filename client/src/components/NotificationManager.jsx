@@ -91,17 +91,17 @@ const NotificationManager = ({ goals, lastEntry }) => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md mb-6">
-      <h3 className="text-lg font-semibold text-blue-800 mb-3">🔔 Sleep Reminders</h3>
+    <div className="p-6">
+      <h3 className="text-xl font-semibold text-white mb-6">Sleep Reminders</h3>
       
       {permission === "default" && (
-        <div className="p-3 bg-yellow-50 border border-yellow-200 rounded mb-3">
-          <p className="text-sm text-yellow-700 mb-2">
+        <div className="p-4 bg-zinc-800 border border-zinc-700 rounded-lg mb-4">
+          <p className="text-sm text-zinc-300 mb-3">
             Enable notifications to get bedtime and wake-up reminders!
           </p>
           <button
             onClick={requestPermission}
-            className="bg-yellow-600 text-white px-3 py-1 rounded text-sm hover:bg-yellow-700"
+            className="bg-zinc-700 hover:bg-zinc-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
           >
             Enable Notifications
           </button>
@@ -109,16 +109,16 @@ const NotificationManager = ({ goals, lastEntry }) => {
       )}
 
       {permission === "denied" && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded mb-3">
-          <p className="text-sm text-red-700">
+        <div className="p-4 bg-red-900/50 border border-red-800 rounded-lg mb-4">
+          <p className="text-sm text-red-300">
             Notifications are blocked. Please enable them in your browser settings to receive sleep reminders.
           </p>
         </div>
       )}
 
       {permission === "granted" && goals?.reminderEnabled && (
-        <div className="p-3 bg-green-50 border border-green-200 rounded">
-          <p className="text-sm text-green-700">
+        <div className="p-4 bg-green-900/50 border border-green-800 rounded-lg">
+          <p className="text-sm text-green-300">
             ✅ Sleep reminders are active! You'll get notified 1 hour before your bedtime ({goals.targetBedtime}) 
             and at your wake time ({goals.targetWakeTime}).
           </p>
@@ -126,8 +126,8 @@ const NotificationManager = ({ goals, lastEntry }) => {
       )}
 
       {permission === "granted" && !goals?.reminderEnabled && (
-        <div className="p-3 bg-gray-50 border border-gray-200 rounded">
-          <p className="text-sm text-gray-600">
+        <div className="p-4 bg-zinc-800 border border-zinc-700 rounded-lg">
+          <p className="text-sm text-zinc-400">
             Notifications are enabled but reminders are turned off in your sleep goals.
           </p>
         </div>
