@@ -62,64 +62,76 @@ const SleepEntryForm = ({ visible, onClose, setEntries }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-        <h2 className="text-xl font-semibold mb-4">Add New Sleep Entry</h2>
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-lg shadow-2xl w-full max-w-md">
+        <h2 className="text-xl font-semibold text-white mb-6">Add New Sleep Entry</h2>
 
-        <form onSubmit={handleSubmit}>
-          <label className="block mb-2">Date</label>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            required
-            className="w-full mb-4 p-2 border rounded"
-          />
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block mb-2 text-zinc-300 font-medium">Date</label>
+            <input
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+              className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:border-zinc-600 focus:outline-none transition-colors"
+            />
+          </div>
 
-          <label className="block mb-2">Sleep Time</label>
-          <input
-            type="time"
-            value={sleepTime}
-            onChange={(e) => setSleepTime(e.target.value)}
-            required
-            className="w-full mb-4 p-2 border rounded"
-          />
+          <div>
+            <label className="block mb-2 text-zinc-300 font-medium">Sleep Time</label>
+            <input
+              type="time"
+              value={sleepTime}
+              onChange={(e) => setSleepTime(e.target.value)}
+              required
+              className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:border-zinc-600 focus:outline-none transition-colors"
+            />
+          </div>
 
-          <label className="block mb-2">Wake Time</label>
-          <input
-            type="time"
-            value={wakeTime}
-            onChange={(e) => setWakeTime(e.target.value)}
-            required
-            className="w-full mb-4 p-2 border rounded"
-          />
+          <div>
+            <label className="block mb-2 text-zinc-300 font-medium">Wake Time</label>
+            <input
+              type="time"
+              value={wakeTime}
+              onChange={(e) => setWakeTime(e.target.value)}
+              required
+              className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:border-zinc-600 focus:outline-none transition-colors"
+            />
+          </div>
 
           {sleepTime && wakeTime && (
-            <p className="mb-4 text-gray-700">
-              Estimated Duration: <strong>{calculateDuration()}</strong>
-            </p>
+            <div className="p-3 bg-zinc-800 border border-zinc-700 rounded-lg">
+              <p className="text-zinc-300">
+                Estimated Duration: <span className="text-white font-semibold">{calculateDuration()}</span>
+              </p>
+            </div>
           )}
 
-          {error && <p className="text-red-600 text-sm mb-3">{error}</p>}
+          {error && (
+            <div className="p-3 bg-red-900/50 border border-red-800 text-red-300 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
 
-          <div className="flex justify-between mt-4">
+          <div className="flex gap-3 mt-6">
             <button
               type="button"
               onClick={resetForm}
-              className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+              className="flex-1 bg-zinc-700 hover:bg-zinc-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
             >
               Reset
             </button>
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+              className="flex-1 bg-zinc-700 hover:bg-zinc-600 text-white px-4 py-2 rounded-lg font-medium transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg font-medium transition-colors"
             >
               Submit
             </button>
@@ -127,6 +139,7 @@ const SleepEntryForm = ({ visible, onClose, setEntries }) => {
         </form>
       </div>
     </div>
+
   );
 };
 
