@@ -1,6 +1,23 @@
 import { useMemo } from "react";
-import { format, startOfWeek, endOfWeek, eachDayOfInterval, isWithinInterval, parseISO } from "date-fns";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from "recharts";
+import { 
+  format, 
+  startOfWeek, 
+  endOfWeek, 
+  eachDayOfInterval, 
+  isWithinInterval, 
+  parseISO 
+} from "date-fns";
+import { 
+  LineChart, 
+  Line, 
+  XAxis, 
+  YAxis, 
+  CartesianGrid, 
+  Tooltip, 
+  ResponsiveContainer, 
+  BarChart, 
+  Bar 
+} from "recharts";
 
 const WeeklyReport = ({ entries, goals, visible, onClose }) => {
   const weeklyData = useMemo(() => {
@@ -141,13 +158,6 @@ const WeeklyReport = ({ entries, goals, visible, onClose }) => {
                       labelFormatter={(label) => `${label}`}
                     />
                     <Bar dataKey="sleepHours" fill="#3b82f6" />
-                    <Line 
-                      type="monotone" 
-                      dataKey="targetHours" 
-                      stroke="#ef4444" 
-                      strokeDasharray="5 5"
-                      name="Target"
-                    />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
