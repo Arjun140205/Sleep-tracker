@@ -4,10 +4,12 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import TestDashboard from "./pages/TestDashboard";
+import CustomCursor from "./components/ui/CustomCursor";
 
 function App() {
   return (
     <Router>
+      <CustomCursor />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
