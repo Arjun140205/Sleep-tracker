@@ -1,0 +1,139 @@
+/* Spotlight Background Styles */
+.spotlight-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #000000;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(0, 0, 0, 0.95) 0%, #000000 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 0, 0, 0.98) 0%, #000000 50%),
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.92) 0%, #000000 70%);
+}
+
+.spotlight-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: screen;
+}
+
+.spotlight {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(0px) drop-shadow(0 0 60px rgba(255, 255, 255, 0.12));
+  opacity: 0.45;
+  will-change: transform;
+  mix-blend-mode: multiply;
+  box-shadow: 
+    0 0 120px rgba(200, 200, 200, 0.18),
+    0 0 240px rgba(150, 150, 150, 0.1),
+    inset 0 0 120px rgba(255, 255, 255, 0.06);
+}
+
+/* Enhanced gradient texture overlay for all circles */
+.spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: 
+    radial-gradient(ellipse at 25% 25%, rgba(255, 255, 255, 0.18) 0%, rgba(240, 240, 240, 0.12) 30%, transparent 60%),
+    radial-gradient(ellipse at 75% 75%, rgba(220, 220, 220, 0.15) 0%, rgba(200, 200, 200, 0.09) 40%, transparent 70%),
+    radial-gradient(ellipse at 50% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0%, rgba(180, 180, 180, 0.05) 50%, transparent 100%),
+    linear-gradient(-45deg, rgba(230, 230, 230, 0.07) 0%, rgba(160, 160, 160, 0.04) 50%, transparent 100%);
+  opacity: 0.8;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Smooth center depth enhancement */
+.spotlight::after {
+  content: '';
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  right: 25%;
+  bottom: 25%;
+  border-radius: 50%;
+  background: 
+    radial-gradient(circle, transparent 0%, rgba(120, 120, 120, 0.02) 20%, rgba(140, 140, 140, 0.05) 40%, rgba(160, 160, 160, 0.09) 60%, rgba(180, 180, 180, 0.14) 80%, rgba(200, 200, 200, 0.2) 100%);
+  opacity: 0.5;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  filter: blur(4px);
+}
+
+.spotlight-1 {
+  width: 500px;
+  height: 500px;
+  background: 
+    radial-gradient(circle at 50% 50%, transparent 0%, rgba(60, 60, 60, 0.01) 10%, rgba(80, 80, 80, 0.03) 20%, rgba(100, 100, 100, 0.06) 30%, rgba(120, 120, 120, 0.1) 40%, rgba(140, 140, 140, 0.15) 50%, rgba(160, 160, 160, 0.22) 60%, rgba(180, 180, 180, 0.3) 70%, rgba(200, 200, 200, 0.4) 80%, rgba(220, 220, 220, 0.5) 90%, rgba(240, 240, 240, 0.6) 100%);
+  z-index: 3;
+}
+
+.spotlight-2 {
+  width: 550px;
+  height: 550px;
+  background: 
+    radial-gradient(circle at 50% 50%, transparent 0%, rgba(55, 55, 55, 0.01) 10%, rgba(75, 75, 75, 0.025) 20%, rgba(95, 95, 95, 0.055) 30%, rgba(115, 115, 115, 0.09) 40%, rgba(135, 135, 135, 0.14) 50%, rgba(155, 155, 155, 0.2) 60%, rgba(175, 175, 175, 0.28) 70%, rgba(195, 195, 195, 0.37) 80%, rgba(215, 215, 215, 0.47) 90%, rgba(235, 235, 235, 0.58) 100%);
+  z-index: 2;
+}
+
+.spotlight-3 {
+  width: 480px;
+  height: 480px;
+  background: 
+    radial-gradient(circle at 50% 50%, transparent 0%, rgba(58, 58, 58, 0.01) 10%, rgba(78, 78, 78, 0.028) 20%, rgba(98, 98, 98, 0.058) 30%, rgba(118, 118, 118, 0.095) 40%, rgba(138, 138, 138, 0.145) 50%, rgba(158, 158, 158, 0.21) 60%, rgba(178, 178, 178, 0.29) 70%, rgba(198, 198, 198, 0.38) 80%, rgba(218, 218, 218, 0.48) 90%, rgba(238, 238, 238, 0.59) 100%);
+  z-index: 1;
+}
+
+.spotlight-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ultra-subtle grid pattern */
+.spotlight-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.005) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.005) 1px, transparent 1px);
+  background-size: 120px 120px;
+  opacity: 0.1;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .spotlight-1 {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .spotlight-2 {
+    width: 325px;
+    height: 325px;
+  }
+  
+  .spotlight-3 {
+    width: 280px;
+    height: 280px;
+  }
+}

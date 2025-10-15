@@ -1,0 +1,25 @@
+/* Mouse movement glow effect */
+.mouse-glow-effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  transition: background 0.1s ease;
+}
+
+/* Hide on mobile devices */
+@media (max-width: 768px) {
+  .mouse-glow-effect {
+    display: none;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .mouse-glow-effect {
+    transition: none;
+  }
+}
