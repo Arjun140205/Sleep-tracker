@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { HiChartBar, HiXMark } from "react-icons/hi2";
 
 const PerformanceMonitor = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -38,10 +39,11 @@ const PerformanceMonitor = () => {
       <div className="fixed bottom-4 left-4 z-50">
         <button
           onClick={() => setIsVisible(true)}
-          className="bg-gray-800 text-white px-3 py-1 rounded text-xs hover:bg-gray-700"
+          className="bg-gray-800 text-white px-3 py-1 rounded text-xs hover:bg-gray-700 flex items-center gap-2"
           title="Performance Monitor (Ctrl+Shift+P)"
         >
-          📊 Perf
+          <HiChartBar className="text-sm" />
+          Perf
         </button>
       </div>
     );
@@ -55,7 +57,7 @@ const PerformanceMonitor = () => {
           onClick={() => setIsVisible(false)}
           className="text-gray-400 hover:text-white"
         >
-          ✕
+          <HiXMark />
         </button>
       </div>
       
