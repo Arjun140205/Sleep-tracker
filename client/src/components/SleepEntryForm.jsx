@@ -139,7 +139,6 @@ const SleepEntryForm = ({ visible, onClose, setEntries }) => {
         </form>
       </div>
     </div>
-
   );
 };
 
