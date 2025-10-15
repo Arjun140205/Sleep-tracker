@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { HiChartBar, HiXMark, HiCheckCircle, HiExclamationTriangle, HiSparkles, HiArrowTrendingUp } from "react-icons/hi2";
 
 const WeeklyReportFixed = ({ entries, goals, visible, onClose }) => {
   const weeklyData = useMemo(() => {
@@ -40,12 +41,15 @@ const WeeklyReportFixed = ({ entries, goals, visible, onClose }) => {
       <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-blue-800">📊 Weekly Sleep Report</h2>
+            <div className="flex items-center gap-3">
+              <HiChartBar className="text-2xl text-blue-800" />
+              <h2 className="text-2xl font-bold text-blue-800">Weekly Sleep Report</h2>
+            </div>
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600 text-xl"
             >
-              ✕
+              <HiXMark />
             </button>
           </div>
 
@@ -89,15 +93,27 @@ const WeeklyReportFixed = ({ entries, goals, visible, onClose }) => {
                 <h4 className="text-lg font-semibold mb-3">Weekly Insights</h4>
                 <div className="space-y-2 text-sm">
                   {weeklyData.stats.avgSleep >= (goals?.targetSleepHours || 7) ? (
-                    <p className="text-green-700">✅ Great job! You're meeting your sleep goals this week.</p>
+                    <div className="flex items-center gap-2 text-green-700">
+                      <HiCheckCircle className="text-base" />
+                      <p>Great job! You're meeting your sleep goals this week.</p>
+                    </div>
                   ) : (
-                    <p className="text-red-700">⚠️ You're averaging {((goals?.targetSleepHours || 7) - weeklyData.stats.avgSleep).toFixed(1)} hours less sleep than your goal.</p>
+                    <div className="flex items-center gap-2 text-red-700">
+                      <HiExclamationTriangle className="text-base" />
+                      <p>You're averaging {((goals?.targetSleepHours || 7) - weeklyData.stats.avgSleep).toFixed(1)} hours less sleep than your goal.</p>
+                    </div>
                   )}
                   
                   {weeklyData.stats.daysWithGoodSleep >= 5 ? (
-                    <p className="text-green-700">🎉 Excellent consistency! You had good sleep on {weeklyData.stats.daysWithGoodSleep} days.</p>
+                    <div className="flex items-center gap-2 text-green-700">
+                      <HiSparkles className="text-base" />
+                      <p>Excellent consistency! You had good sleep on {weeklyData.stats.daysWithGoodSleep} days.</p>
+                    </div>
                   ) : (
-                    <p className="text-yellow-700">📈 Try to improve consistency. Aim for at least 5 days of good sleep per week.</p>
+                    <div className="flex items-center gap-2 text-yellow-700">
+                      <HiArrowTrendingUp className="text-base" />
+                      <p>Try to improve consistency. Aim for at least 5 days of good sleep per week.</p>
+                    </div>
                   )}
                 </div>
               </div>
