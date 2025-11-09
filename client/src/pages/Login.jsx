@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { setToken } from "../utils/auth";
-import SpotlightBackground from "../components/ui/spotlight-background";
+import GridBackground from "../components/ui/grid-background";
+import { HiArrowRight } from "react-icons/hi2";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -47,113 +48,106 @@ const Login = () => {
   };
 
   return (
-    <SpotlightBackground>
-      <div className="min-h-screen flex items-center justify-center p-4">
+    <GridBackground>
+      <div className="min-h-screen flex flex-col items-center justify-center p-6">
+        {/* Logo */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 p-8 rounded-xl shadow-2xl w-full max-w-md"
+          className="mb-12"
         >
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-2xl font-bold text-center text-white mb-6"
-          >
-            Welcome Back
-          </motion.h2>
+          <Link to="/" className="text-3xl font-bold text-white tracking-tight">
+            Sleep
+          </Link>
+        </motion.div>
 
-          <form onSubmit={handleSubmit}>
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="mb-4"
-            >
-              <label className="block text-zinc-300 text-sm font-medium mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="w-full p-3 bg-zinc-800/50 border border-zinc-700 rounded-lg focus:outline-none focus:border-white text-white placeholder-zinc-400"
-                placeholder="Enter your email"
-              />
-            </motion.div>
+        {/* Card */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="w-full max-w-md"
+        >
+          <div className="bg-zinc-900/80 backdrop-blur-sm border border-zinc-800 rounded-2xl p-8 shadow-2xl">
+            <div className="text-center mb-8">
+              <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">
+                Welcome Back
+              </h1>
+              <p className="text-zinc-400 text-lg">
+                Sign in to continue your journey
+              </p>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="mb-6"
-            >
-              <label className="block text-zinc-300 text-sm font-medium mb-2">
-                Password
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                className="w-full p-3 bg-zinc-800/50 border border-zinc-700 rounded-lg focus:outline-none focus:border-white text-white placeholder-zinc-400"
-                placeholder="Enter your password"
-              />
-            </motion.div>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full px-5 py-4 bg-zinc-800/50 border border-zinc-700 rounded-xl focus:outline-none focus:border-zinc-500 focus:bg-zinc-800 text-white placeholder-zinc-500 transition-all text-base"
+                  placeholder="Email address"
+                />
+              </div>
 
-            {error && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="mb-4 p-3 bg-red-900/50 border border-red-700 text-red-300 rounded-lg"
+              <div>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className="w-full px-5 py-4 bg-zinc-800/50 border border-zinc-700 rounded-xl focus:outline-none focus:border-zinc-500 focus:bg-zinc-800 text-white placeholder-zinc-500 transition-all text-base"
+                  placeholder="Password"
+                />
+              </div>
+
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 bg-zinc-800 border border-zinc-700 rounded-xl"
+                >
+                  <p className="text-sm text-zinc-300 text-center">{error}</p>
+                </motion.div>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="group w-full px-5 py-4 bg-white text-black rounded-xl font-bold text-base hover:bg-zinc-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 mt-6"
               >
-                {error}
-              </motion.div>
-            )}
+                {loading ? "Signing in..." : "Sign In"}
+                {!loading && (
+                  <HiArrowRight className="text-xl group-hover:translate-x-1 transition-transform" />
+                )}
+              </button>
+            </form>
 
-            <motion.button
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              type="submit"
-              disabled={loading}
-              className="w-full bg-white text-black p-3 rounded-lg hover:bg-zinc-100 disabled:opacity-50 disabled:cursor-not-allowed font-semibold transition-all duration-300"
+            <div className="mt-8 pt-6 border-t border-zinc-800 text-center">
+              <p className="text-zinc-400">
+                Don't have an account?{" "}
+                <Link
+                  to="/signup"
+                  className="text-white font-semibold hover:underline"
+                >
+                  Sign up
+                </Link>
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center mt-6">
+            <Link
+              to="/"
+              className="text-sm text-zinc-500 hover:text-zinc-300 transition-colors"
             >
-              {loading ? "Logging in..." : "Login"}
-            </motion.button>
-          </form>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-            className="text-center mt-6"
-          >
-            <p className="text-zinc-400">
-              Don't have an account?{" "}
-              <Link to="/signup" className="text-white hover:underline">
-                Sign up here
-              </Link>
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.6 }}
-            className="text-center mt-4"
-          >
-            <Link to="/" className="text-zinc-400 hover:text-white transition-colors">
               ← Back to Home
             </Link>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
-    </SpotlightBackground>
+    </GridBackground>
   );
 };
 
