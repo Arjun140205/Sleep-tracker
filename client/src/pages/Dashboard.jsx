@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getToken, logout } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { HiMoon, HiChartBar } from "react-icons/hi2";
 
 // Import components gradually
 import SleepEntryForm from "../components/SleepEntryForm";
@@ -68,7 +69,7 @@ const Dashboard = () => {
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
               <div className="w-10 h-10 bg-zinc-800 rounded-lg flex items-center justify-center">
-                <span className="text-xl">🛌</span>
+                <HiMoon className="text-xl text-white" />
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-white">Sleep Tracker</h1>
@@ -111,9 +112,10 @@ const Dashboard = () => {
             <ExportButton entries={entries} />
             <button
               onClick={() => setShowWeeklyReport(true)}
-              className="w-full bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg transition-colors"
+              className="w-full bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
             >
-              📊 Weekly Report
+              <HiChartBar className="text-lg" />
+              Weekly Report
             </button>
           </div>
         </div>
