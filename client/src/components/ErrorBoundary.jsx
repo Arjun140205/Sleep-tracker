@@ -1,4 +1,5 @@
 import React from 'react';
+import { HiExclamationTriangle } from 'react-icons/hi2';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class ErrorBoundary extends React.Component {
         <div className="min-h-screen bg-red-50 flex items-center justify-center p-4">
           <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
             <div className="text-center mb-6">
-              <div className="text-6xl mb-4">😴</div>
+              <HiExclamationTriangle className="text-6xl mb-4 text-red-600 mx-auto" />
               <h1 className="text-2xl font-bold text-red-600 mb-2">Oops! Something went wrong</h1>
               <p className="text-gray-600">
                 The Sleep Tracker encountered an unexpected error. Don't worry, your sleep data is safe!
