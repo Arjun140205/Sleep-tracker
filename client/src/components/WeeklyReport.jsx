@@ -18,6 +18,7 @@ import {
   BarChart, 
   Bar 
 } from "recharts";
+import { HiChartBar, HiX } from "react-icons/hi";
 
 const WeeklyReport = ({ entries, goals, visible, onClose }) => {
   const weeklyData = useMemo(() => {
@@ -95,12 +96,15 @@ const WeeklyReport = ({ entries, goals, visible, onClose }) => {
       <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-blue-800">📊 Weekly Sleep Report</h2>
+            <h2 className="text-2xl font-bold text-blue-800 flex items-center gap-2">
+              <HiChartBar className="text-3xl" />
+              Weekly Sleep Report
+            </h2>
             <button
               onClick={onClose}
               className="text-gray-400 hover:text-gray-600 text-xl"
             >
-              ✕
+              <HiX />
             </button>
           </div>
 
