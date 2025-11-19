@@ -1,5 +1,6 @@
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
+import { HiArrowDownTray } from "react-icons/hi2";
 
 const ExportButton = ({ entries }) => {
   const handleExport = () => {
@@ -28,9 +29,10 @@ const ExportButton = ({ entries }) => {
   return (
     <button
       onClick={handleExport}
-      className="w-full bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg transition-colors"
+      className="w-full bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center gap-2"
     >
-      ⬇️ Export to Excel
+      <HiArrowDownTray className="text-lg" />
+      Export to Excel
     </button>
   );
 };
