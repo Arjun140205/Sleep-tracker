@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getToken } from "../utils/auth";
 import { format, differenceInMinutes } from "date-fns";
+import { HiMoon, HiSun, HiLightBulb } from "react-icons/hi2";
 
 const QuickSleepLog = ({ onEntryAdded }) => {
   const [isLogging, setIsLogging] = useState(false);
@@ -18,7 +19,7 @@ const QuickSleepLog = ({ onEntryAdded }) => {
     
     // Show notification if supported
     if (Notification.permission === "granted") {
-      new Notification("😴 Sleep tracking started", {
+      new Notification("Sleep tracking started", {
         body: `Started at ${format(now, 'HH:mm')}. Tap 'Wake Up' when you're ready!`,
         icon: "/favicon.ico"
       });
@@ -71,7 +72,7 @@ const QuickSleepLog = ({ onEntryAdded }) => {
 
       // Show success notification
       if (Notification.permission === "granted") {
-        new Notification("🌅 Sleep logged successfully!", {
+        new Notification("Sleep logged successfully!", {
           body: `You slept for ${duration}. Great job tracking your sleep!`,
           icon: "/favicon.ico"
         });
@@ -112,9 +113,10 @@ const QuickSleepLog = ({ onEntryAdded }) => {
           </p>
           <button
             onClick={startSleepTracking}
-            className="bg-zinc-800 hover:bg-zinc-700 text-white px-8 py-4 rounded-lg font-medium transition-colors"
+            className="bg-zinc-800 hover:bg-zinc-700 text-white px-8 py-4 rounded-lg font-medium transition-colors flex items-center justify-center gap-2 mx-auto"
           >
-            😴 Start Sleep Tracking
+            <HiMoon className="text-xl" />
+            Start Sleep Tracking
           </button>
         </div>
       ) : (
@@ -132,9 +134,10 @@ const QuickSleepLog = ({ onEntryAdded }) => {
           <div className="space-y-3">
             <button
               onClick={stopSleepTracking}
-              className="w-full bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-3 rounded-lg font-medium transition-colors"
+              className="w-full bg-zinc-800 hover:bg-zinc-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center justify-center gap-2"
             >
-              🌅 Wake Up & Log Sleep
+              <HiSun className="text-xl" />
+              Wake Up & Log Sleep
             </button>
             
             <button
@@ -157,8 +160,9 @@ const QuickSleepLog = ({ onEntryAdded }) => {
         </div>
       )}
 
-      <div className="mt-6 text-xs text-zinc-500 text-center">
-        💡 Tip: Keep this tab open or bookmark it for easy sleep tracking!
+      <div className="mt-6 text-xs text-zinc-500 text-center flex items-center justify-center gap-2">
+        <HiLightBulb className="text-sm" />
+        Tip: Keep this tab open or bookmark it for easy sleep tracking!
       </div>
     </div>
   );
