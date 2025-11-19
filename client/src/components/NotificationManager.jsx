@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, useRef } from "react";
+import { HiMoon } from "react-icons/hi2";
 
 const NotificationManager = ({ goals, lastEntry }) => {
   const [permission, setPermission] = useState(Notification.permission);
@@ -60,7 +61,7 @@ const NotificationManager = ({ goals, lastEntry }) => {
     // Schedule bedtime reminder
     const bedtimeTimeout = setTimeout(() => {
       showNotification(
-        "🌙 Bedtime Reminder",
+        "Bedtime Reminder",
         `Time to start winding down! Your target bedtime is ${goals.targetBedtime}`,
         "bedtime"
       );
