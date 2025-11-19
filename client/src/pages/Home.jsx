@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -227,9 +227,9 @@ const Home = () => {
               © 2024 Sleep Tracker
             </div>
             <div className="flex gap-8 text-sm text-zinc-500">
-              <a href="#" className="hover:text-white transition-colors">Privacy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms</a>
-              <a href="#" className="hover:text-white transition-colors">Contact</a>
+              <button className="hover:text-white transition-colors">Privacy</button>
+              <button className="hover:text-white transition-colors">Terms</button>
+              <button className="hover:text-white transition-colors">Contact</button>
             </div>
           </div>
         </footer>
