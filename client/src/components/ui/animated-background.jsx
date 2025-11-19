@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
 import "./animated-background.css";
 
 const AnimatedBackground = ({ children }) => {
