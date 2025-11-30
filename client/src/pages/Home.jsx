@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { HiChartBar, HiUserGroup, HiClock, HiArrowRight } from "react-icons/hi2";
-import AnimatedBackground from "../components/ui/animated-background";
+import { HiMoon } from "react-icons/hi";
+import { BlackHoleScene } from "../components/ui/black-hole-vortex-animation";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -74,12 +75,24 @@ const Home = () => {
   }, []);
 
   return (
-    <AnimatedBackground>
-      <div ref={containerRef} className="relative min-h-screen">
-        {/* Minimal Navigation */}
-        <nav className="relative z-50 px-8 py-8">
+    <div ref={containerRef} className="relative">
+      {/* Black Hole Hero Section */}
+      <section className="relative">
+        <BlackHoleScene 
+          title="Transform Your Sleep" 
+          subtitle="AI-powered insights and personalized coaching to help you sleep better every night" 
+          showButton={true}
+          buttonText="Let's Get Started"
+          buttonLink="/signup"
+        />
+        
+        {/* Navigation overlay */}
+        <nav className="absolute top-0 left-0 right-0 z-50 px-8 py-8">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <div className="text-2xl font-bold text-white">Sleep Tracker</div>
+            <div className="text-2xl font-bold text-white flex items-center gap-2">
+              <HiMoon className="text-3xl" />
+              Sleep Tracker
+            </div>
             <div className="flex gap-4">
               <Link to="/login">
                 <button className="px-6 py-2 text-sm font-medium text-zinc-400 hover:text-white transition-colors">
@@ -94,49 +107,10 @@ const Home = () => {
             </div>
           </div>
         </nav>
+      </section>
 
-        {/* Hero Section - Clean & Minimal */}
-        <section className="relative z-10 min-h-screen flex items-center justify-center px-8 py-20">
-          <div className="max-w-5xl mx-auto text-center">
-            {/* Main Headline */}
-            <div className="mb-12 overflow-hidden">
-              <h1 className="text-[clamp(3rem,15vw,9rem)] font-bold leading-[0.85] tracking-tighter">
-                <div className="mb-2">
-                  <span className="hero-word inline-block text-white">Transform</span>
-                </div>
-                <div>
-                  <span className="hero-word inline-block text-zinc-500">Your</span>{" "}
-                  <span className="hero-word inline-block text-zinc-500">Sleep</span>
-                </div>
-              </h1>
-            </div>
-
-            {/* Description */}
-            <p className="hero-desc text-xl md:text-2xl text-zinc-400 mb-16 max-w-2xl mx-auto leading-relaxed">
-              AI-powered insights and personalized coaching to help you sleep better every night
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link to="/signup">
-                <button className="hero-btn group px-10 py-4 bg-white text-black rounded-lg font-semibold text-lg hover:bg-zinc-100 transition-all hover:scale-105">
-                  <span className="flex items-center gap-2">
-                    Start Free Trial
-                    <HiArrowRight className="group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </button>
-              </Link>
-              <Link to="/login">
-                <button className="hero-btn px-10 py-4 bg-zinc-900/50 backdrop-blur-sm text-white rounded-lg font-semibold text-lg border border-zinc-800 hover:border-zinc-700 transition-all hover:scale-105">
-                  Sign In
-                </button>
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Features Section - Minimal List Style */}
-        <section className="relative z-10 py-32 px-8">
+      {/* Features Section - Dark theme to match */}
+      <section className="relative z-10 py-32 px-8 bg-black">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-5xl md:text-6xl font-bold text-white mb-20 tracking-tight">
               Features
@@ -181,8 +155,8 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Stats Section - Clean Numbers */}
-        <section className="stats-container relative z-10 py-32 px-8">
+      {/* Stats Section - Clean Numbers */}
+      <section className="stats-container relative z-10 py-32 px-8 bg-black">
           <div className="max-w-5xl mx-auto">
             <div className="grid md:grid-cols-3 gap-16 text-center">
               {[
@@ -203,8 +177,8 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Final CTA - Minimal */}
-        <section className="relative z-10 py-32 px-8">
+      {/* Final CTA - Minimal */}
+      <section className="relative z-10 py-32 px-8 bg-black">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-5xl md:text-7xl font-bold text-white mb-12 tracking-tight leading-tight">
               Ready to sleep better?
@@ -220,8 +194,8 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Footer */}
-        <footer className="relative z-10 border-t border-zinc-900 py-12 px-8">
+      {/* Footer */}
+      <footer className="relative z-10 border-t border-zinc-800 py-12 px-8 bg-black">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="text-zinc-500 text-sm">
               © 2024 Sleep Tracker
@@ -232,9 +206,8 @@ const Home = () => {
               <button className="hover:text-white transition-colors">Contact</button>
             </div>
           </div>
-        </footer>
-      </div>
-    </AnimatedBackground>
+      </footer>
+    </div>
   );
 };
 
