@@ -1,36 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getToken } from "../utils/auth";
-import { differenceInMinutes, parse } from "date-fns";
+import { calculateDuration } from "../utils/timeUtils";
 
-const SleepEntryForm = ({ visible, onClose, setEntries }) => {
+const SleepEntryForm = ({ visible, onClose, setEntries, initialValues }) => {
   const [date, setDate] = useState("");
   const [sleepTime, setSleepTime] = useState("");
   const [wakeTime, setWakeTime] = useState("");
   const [error, setError] = useState("");
 
-  if (!visible) return null;
-
-  const calculateDuration = () => {
-    try {
-      const sleep = parse(sleepTime, "HH:mm", new Date());
-      const wake = parse(wakeTime, "HH:mm", new Date());
-      let minutes = differenceInMinutes(wake, sleep);
-      if (minutes < 0) minutes += 1440;
-
-      const hrs = Math.floor(minutes / 60);
-      const mins = minutes % 60;
-      return `${hrs}h ${mins}m`;
-    } catch {
-      return "";
+  useEffect(() => {
+    if (visible && initialValues) {
+      if (initialValues.date) setDate(initialValues.date);
+      if (initialValues.sleepTime) setSleepTime(initialValues.sleepTime);
+      if (initialValues.wakeTime) setWakeTime(initialValues.wakeTime);
     }
-  };
+  }, [visible, initialValues]);
+
+  if (!visible) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
     const token = getToken();
-    const duration = calculateDuration();
+    const duration = calculateDuration(sleepTime, wakeTime);
     const newEntry = { date, sleepTime, wakeTime, duration };
 
     try {
@@ -103,7 +96,7 @@ const SleepEntryForm = ({ visible, onClose, setEntries }) => {
           {sleepTime && wakeTime && (
             <div className="p-3 bg-zinc-800 border border-zinc-700 rounded-lg">
               <p className="text-zinc-300">
-                Estimated Duration: <span className="text-white font-semibold">{calculateDuration()}</span>
+                Estimated Duration: <span className="text-white font-semibold">{calculateDuration(sleepTime, wakeTime)}</span>
               </p>
             </div>
           )}
