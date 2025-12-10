@@ -14,6 +14,12 @@ import QuickSleepLog from "../components/QuickSleepLog";
 import WeeklyReportFixed from "../components/WeeklyReportFixed";
 import SleepCoach from "../components/SleepCoach";
 import NotificationManager from "../components/NotificationManager";
+import DigitalClock from "../components/DigitalClock";
+import SleepTimer from "../components/SleepTimer";
+import SleepHeatmap from "../components/SleepHeatmap";
+import SleepDebtChart from "../components/SleepDebtChart";
+import CircadianDriftChart from "../components/CircadianDriftChart";
+import { format } from "date-fns";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -56,6 +62,18 @@ const Dashboard = () => {
     }
   }, [navigate]);
 
+  const [initialFormValues, setInitialFormValues] = useState(null);
+
+  const handleSleepComplete = (sleepTime, wakeTime, endDate) => {
+    // Open form with pre-filled values
+    setInitialFormValues({
+      date: format(endDate, 'yyyy-MM-dd'),
+      sleepTime,
+      wakeTime
+    });
+    setShowForm(true);
+  };
+
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -76,35 +94,52 @@ const Dashboard = () => {
                 <p className="text-zinc-400 text-sm">Neural Sleep Analysis System</p>
               </div>
             </div>
-            <button 
-              onClick={handleLogout} 
-              className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg transition-colors"
-            >
-              Logout
-            </button>
+
+            <div className="hidden md:block">
+              <DigitalClock />
+            </div>
+
+            <div className="flex gap-4 items-center">
+
+              <button
+                onClick={handleLogout}
+                className="bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg transition-colors"
+              >
+                Logout
+              </button>
+            </div>
           </div>
+        </div>
+        {/* Mobile Clock */}
+        <div className="md:hidden mt-4">
+          <DigitalClock />
         </div>
       </div>
 
       {/* Basic Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        
+
         {/* Sleep Goals */}
         <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-lg p-6">
           {userGoals && (
-            <SleepGoals 
-              userGoals={userGoals} 
-              onGoalsUpdate={setUserGoals} 
+            <SleepGoals
+              userGoals={userGoals}
+              onGoalsUpdate={setUserGoals}
             />
           )}
         </div>
 
         {/* Quick Actions */}
-        <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-lg p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Quick Actions</h3>
+        <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-lg p-6 flex flex-col gap-4">
+          <SleepTimer onSleepComplete={handleSleepComplete} />
+
           <div className="space-y-3">
+            <h3 className="text-lg font-semibold text-white">Manual Actions</h3>
             <button
-              onClick={() => setShowForm(true)}
+              onClick={() => {
+                setInitialFormValues(null); // Clear previous auto-fill
+                setShowForm(true);
+              }}
               className="w-full bg-zinc-800 hover:bg-zinc-700 text-white px-4 py-2 rounded-lg transition-colors"
             >
               + New Entry
@@ -122,9 +157,23 @@ const Dashboard = () => {
 
       </div>
 
+      {/* Advanced Analytics Deep Dive */}
+      <h2 className="text-2xl font-bold text-white mb-6">Deep Dive Analytics</h2>
+
+      {/* Heatmap */}
+      <div className="mb-6">
+        <SleepHeatmap entries={entries} goals={userGoals} />
+      </div>
+
+      {/* Advanced Charts Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <SleepDebtChart entries={entries} goals={userGoals} />
+        <CircadianDriftChart entries={entries} />
+      </div>
+
       {/* Data Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        
+
         {/* Sleep Entry List */}
         <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-lg">
           <SleepEntryList entries={entries} />
@@ -155,21 +204,26 @@ const Dashboard = () => {
       {userGoals && (
         <div className="mb-8">
           <div className="bg-zinc-900/50 backdrop-blur-sm border border-zinc-800 rounded-lg">
-            <NotificationManager 
-              goals={userGoals} 
-              lastEntry={entries[0]} 
+            <NotificationManager
+              goals={userGoals}
+              lastEntry={entries[0]}
             />
           </div>
         </div>
       )}
 
       {/* Modals */}
-      <SleepEntryForm visible={showForm} onClose={() => setShowForm(false)} setEntries={setEntries} />
-      <WeeklyReportFixed 
-        entries={entries} 
-        goals={userGoals} 
-        visible={showWeeklyReport} 
-        onClose={() => setShowWeeklyReport(false)} 
+      <SleepEntryForm
+        visible={showForm}
+        onClose={() => setShowForm(false)}
+        setEntries={setEntries}
+        initialValues={initialFormValues}
+      />
+      <WeeklyReportFixed
+        entries={entries}
+        goals={userGoals}
+        visible={showWeeklyReport}
+        onClose={() => setShowWeeklyReport(false)}
       />
     </div>
   );
