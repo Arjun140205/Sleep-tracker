@@ -21,6 +21,8 @@ import SleepDebtChart from "../components/SleepDebtChart";
 import CircadianDriftChart from "../components/CircadianDriftChart";
 import { format } from "date-fns";
 
+import API_URL from "../apiConfig";
+
 const Dashboard = () => {
   const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
@@ -35,7 +37,7 @@ const Dashboard = () => {
     } else {
       // Load entries
       axios
-        .get("http://localhost:5001/api/entries", {
+        .get(`${API_URL}/entries`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setEntries(res.data))
@@ -46,7 +48,7 @@ const Dashboard = () => {
 
       // Load user goals
       axios
-        .get("http://localhost:5001/api/user/goals", {
+        .get(`${API_URL}/user/goals`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => setUserGoals(res.data))

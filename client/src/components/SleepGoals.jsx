@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { getToken } from "../utils/auth";
 
+import API_URL from "../apiConfig";
+
 const SleepGoals = ({ userGoals, onGoalsUpdate }) => {
   const [goals, setGoals] = useState({
     targetSleepHours: 7,
@@ -14,7 +16,7 @@ const SleepGoals = ({ userGoals, onGoalsUpdate }) => {
   const handleSave = async () => {
     try {
       const token = getToken();
-      const response = await fetch("http://localhost:5001/api/user/goals", {
+      const response = await fetch(`${API_URL}/user/goals`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -54,18 +56,18 @@ const SleepGoals = ({ userGoals, onGoalsUpdate }) => {
               max="12"
               step="0.5"
               value={goals.targetSleepHours}
-              onChange={(e) => setGoals({...goals, targetSleepHours: parseFloat(e.target.value)})}
+              onChange={(e) => setGoals({ ...goals, targetSleepHours: parseFloat(e.target.value) })}
               className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white placeholder-zinc-400 focus:border-zinc-600 focus:outline-none transition-colors"
             />
           </div>
-          
+
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium mb-2 text-zinc-300">Target Bedtime</label>
               <input
                 type="time"
                 value={goals.targetBedtime}
-                onChange={(e) => setGoals({...goals, targetBedtime: e.target.value})}
+                onChange={(e) => setGoals({ ...goals, targetBedtime: e.target.value })}
                 className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:border-zinc-600 focus:outline-none transition-colors"
               />
             </div>
@@ -74,7 +76,7 @@ const SleepGoals = ({ userGoals, onGoalsUpdate }) => {
               <input
                 type="time"
                 value={goals.targetWakeTime}
-                onChange={(e) => setGoals({...goals, targetWakeTime: e.target.value})}
+                onChange={(e) => setGoals({ ...goals, targetWakeTime: e.target.value })}
                 className="w-full p-3 bg-zinc-800 border border-zinc-700 rounded-lg text-white focus:border-zinc-600 focus:outline-none transition-colors"
               />
             </div>
@@ -85,7 +87,7 @@ const SleepGoals = ({ userGoals, onGoalsUpdate }) => {
               type="checkbox"
               id="reminders"
               checked={goals.reminderEnabled}
-              onChange={(e) => setGoals({...goals, reminderEnabled: e.target.checked})}
+              onChange={(e) => setGoals({ ...goals, reminderEnabled: e.target.checked })}
               className="mr-3 w-4 h-4 text-white bg-zinc-800 border-zinc-700 rounded focus:ring-zinc-600"
             />
             <label htmlFor="reminders" className="text-sm text-zinc-300">Enable sleep reminders</label>

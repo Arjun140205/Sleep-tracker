@@ -5,6 +5,8 @@ import { setToken } from "../utils/auth";
 import GridBackground from "../components/ui/grid-background";
 import { HiArrowRight } from "react-icons/hi2";
 
+import API_URL from "../apiConfig";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,8 +22,8 @@ const Login = () => {
     try {
       console.log("🔐 Starting login request...");
       const startTime = Date.now();
-      
-      const response = await fetch("http://localhost:5001/api/auth/login", {
+
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

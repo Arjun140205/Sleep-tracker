@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { getToken } from "../utils/auth";
 import { calculateDuration } from "../utils/timeUtils";
 
+import API_URL from "../apiConfig";
+
 const SleepEntryForm = ({ visible, onClose, setEntries, initialValues }) => {
   const [date, setDate] = useState("");
   const [sleepTime, setSleepTime] = useState("");
@@ -27,7 +29,7 @@ const SleepEntryForm = ({ visible, onClose, setEntries, initialValues }) => {
     const newEntry = { date, sleepTime, wakeTime, duration };
 
     try {
-      const res = await fetch("http://localhost:5001/api/entries", {
+      const res = await fetch(`${API_URL}/entries`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
