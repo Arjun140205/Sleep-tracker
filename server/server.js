@@ -20,8 +20,11 @@ app.use(cors({
   ].filter(Boolean),
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'x-auth-token']
 }));
+
+app.enable('trust proxy'); // Trust Vercel proxy
+app.options('*', cors()); // Enable pre-flight for all routes
 
 app.use(express.json());
 
