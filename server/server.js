@@ -11,10 +11,16 @@ const app = express();
 
 // Configure CORS to allow requests from the React app
 app.use(cors({
-  origin: ['http://localhost:3004', 'http://localhost:3005', 'http://localhost:3000'],
+  origin: [
+    'http://localhost:3004',
+    'http://localhost:3005',
+    'http://localhost:3000',
+    'https://sleep-tracker-ecru.vercel.app',
+    process.env.CLIENT_URL
+  ].filter(Boolean),
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
 }));
 
 app.use(express.json());
