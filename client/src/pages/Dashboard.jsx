@@ -38,7 +38,10 @@ const Dashboard = () => {
       // Load entries
       axios
         .get(`${API_URL}/entries`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'x-auth-token': token
+          },
         })
         .then((res) => setEntries(res.data))
         .catch((err) => {
@@ -49,7 +52,10 @@ const Dashboard = () => {
       // Load user goals
       axios
         .get(`${API_URL}/user/goals`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'x-auth-token': token
+          },
         })
         .then((res) => setUserGoals(res.data))
         .catch((err) => {
