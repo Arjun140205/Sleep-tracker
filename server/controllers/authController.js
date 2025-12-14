@@ -1,14 +1,16 @@
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs"); // Switched to bcryptjs for better Vercel compatibility
 const db = require("../config/firebase");
 
 const signup = async (req, res) => {
   const startTime = Date.now();
+  console.log("🔐 Signup request received");
+
   try {
-    console.log("🔐 Signup request started");
     const { email, password, name } = req.body;
 
     if (!email || !password) {
+      console.log("❌ Missing email or password");
       return res.status(400).json({ message: "Email and password are required" });
     }
 
@@ -24,22 +26,22 @@ const signup = async (req, res) => {
     // Use fewer rounds for development (faster), more for production
     const saltRounds = process.env.NODE_ENV === 'production' ? 12 : 8;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-    const newUser = { 
+    const newUser = {
       name: name || email.split('@')[0], // Use email username if name not provided
-      email, 
-      password: hashedPassword 
+      email,
+      password: hashedPassword
     };
-    
+
     console.log("💾 Saving user to database...");
     const userKey = userRef.push().key;
     await userRef.child(userKey).set(newUser);
 
     console.log("🎫 Generating JWT token...");
     const token = jwt.sign({ userId: userKey }, process.env.JWT_SECRET, { expiresIn: "7d" });
-    
+
     const duration = Date.now() - startTime;
     console.log(`✅ Signup completed in ${duration}ms`);
-    
+
     res.json({ token, user: { id: userKey, email, name: newUser.name } });
   } catch (error) {
     const duration = Date.now() - startTime;
@@ -80,10 +82,10 @@ const login = async (req, res) => {
 
     console.log("🎫 Generating JWT token...");
     const token = jwt.sign({ userId: userKey }, process.env.JWT_SECRET, { expiresIn: "7d" });
-    
+
     const duration = Date.now() - startTime;
     console.log(`✅ Login completed in ${duration}ms`);
-    
+
     res.json({ token, user: { id: userKey, email: userData.email, name: userData.name } });
   } catch (error) {
     const duration = Date.now() - startTime;

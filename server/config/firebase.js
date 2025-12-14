@@ -21,13 +21,13 @@ const checkNetworkConnectivity = () => {
       }, (res) => {
         resolve(true);
       });
-      
+
       req.on('error', () => resolve(false));
       req.on('timeout', () => {
         req.destroy();
         resolve(false);
       });
-      
+
       req.end();
     } catch (error) {
       resolve(false);
@@ -44,7 +44,7 @@ try {
     const serviceAccountPath = path.join(__dirname, "serviceAccountKey.json");
     if (fs.existsSync(serviceAccountPath)) {
       const serviceAccount = require(serviceAccountPath);
-      
+
       // Validate the service account has required fields
       if (serviceAccount.project_id && serviceAccount.private_key && serviceAccount.client_email) {
         firebaseConfig = {
@@ -67,7 +67,7 @@ try {
   if (!firebaseConfig && process.env.FIREBASE_SERVICE_ACCOUNT) {
     try {
       const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-      
+
       // Validate the service account has required fields
       if (serviceAccount.project_id && serviceAccount.private_key && serviceAccount.client_email) {
         firebaseConfig = {
@@ -108,7 +108,7 @@ try {
     console.log("🚀 Firebase initialized successfully!");
     console.log("📊 Using credential source:", credentialSource);
     console.log("🗄️  Database URL:", firebaseConfig.databaseURL);
-    
+
     // Check network connectivity asynchronously (non-blocking)
     checkNetworkConnectivity().then(isConnected => {
       if (!isConnected) {
@@ -139,14 +139,17 @@ try {
   console.log("1. Go to Firebase Console > Project Settings > Service Accounts");
   console.log("2. Click 'Generate new private key'");
   console.log("3. Download the JSON file and save it as serviceAccountKey.json in the config folder");
-  
+
   // Enhanced mock database for better development experience
   db = {
     ref: (path) => ({
       push: (data) => {
         const key = Date.now().toString();
         console.log(`📦 Mock DB: Pushing to ${path}:`, data);
-        return Promise.resolve({ key });
+        const promise = Promise.resolve({ key });
+        // Enhance promise to act like a ThenableReference (has .key property immediately)
+        promise.key = key;
+        return promise;
       },
       child: (key) => ({
         set: (data) => {
@@ -156,20 +159,20 @@ try {
       }),
       once: (eventType) => {
         console.log(`📖 Mock DB: Reading from ${path}`);
-        return Promise.resolve({ 
+        return Promise.resolve({
           exists: () => false,
           val: () => null,
-          forEach: () => {}
+          forEach: () => { }
         });
       },
       orderByChild: (child) => ({
         equalTo: (value) => ({
           once: (eventType) => {
             console.log(`🔍 Mock DB: Querying ${path} where ${child} = ${value}`);
-            return Promise.resolve({ 
+            return Promise.resolve({
               exists: () => false,
               val: () => null,
-              forEach: () => {}
+              forEach: () => { }
             });
           }
         })

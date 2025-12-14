@@ -43,4 +43,17 @@ if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }
 
+// Global Error Handler to prevent HTML error responses
+app.use((err, req, res, next) => {
+  console.error("🔥 Global error handler caught:", err);
+  if (res.headersSent) {
+    return next(err);
+  }
+  res.status(500).json({
+    message: "Internal Server Error",
+    error: err.message,
+    stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+  });
+});
+
 module.exports = app;
